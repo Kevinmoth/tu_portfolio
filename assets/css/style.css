@@ -1,0 +1,53 @@
+/* Archivo CSS adicional para estilos personalizados */
+/* La mayoría de los estilos están en el header.php usando Bootstrap 5 */
+
+/* Animaciones adicionales */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Mejoras de scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilos para impresión */
+@media print {
+    .navbar-custom,
+    .footer,
+    .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Estilos adicionales para dispositivos móviles */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+        z-index: 1000;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
