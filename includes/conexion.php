@@ -52,7 +52,7 @@ function mostrar_imagen($id_proyecto, $tipo = 'proyecto') {
     $stmt->execute();
     $resultado = $stmt->get_result();
     
-    if ($row = $resultado->fetch_assoc() && $row['imagen']) {
+    if (($row = $resultado->fetch_assoc()) && $row['imagen']) {
         header("Content-Type: " . $row['imagen_tipo']);
         echo $row['imagen'];
         exit;

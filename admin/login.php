@@ -61,64 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+    <link rel="stylesheet" href="../assets/css/configuracion.css">
     <style>
         :root {
             --primary-blue: #4a90e2;
             --dark-blue: #2c5aa0;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        .login-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            overflow: hidden;
-            max-width: 450px;
-            width: 100%;
-        }
-        
-        .login-header {
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
-        
-        .login-header i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        
-        .login-body {
-            padding: 40px 30px;
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
-        }
-        
-        .btn-login {
-            background: var(--primary-blue);
-            border: none;
-            padding: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .btn-login:hover {
-            background: var(--dark-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
     </style>
 </head>

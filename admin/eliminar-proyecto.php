@@ -2,12 +2,11 @@
 session_start();
 require_once '../includes/conexion.php';
 
-// Verificar si está logueado
+
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
     header('Location: login.php');
     exit;
 }
-
 // Verificar que se recibió un ID
 if (!isset($_GET['id'])) {
     header('Location: editar-proyecto.php');
@@ -16,7 +15,7 @@ if (!isset($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-// Verificar que el proyecto existe
+// mirar que el proyecto exista
 $stmt = $conn->prepare("SELECT titulo FROM proyectos WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -31,7 +30,7 @@ if ($resultado->num_rows === 0) {
 $proyecto = $resultado->fetch_assoc();
 
 // Eliminar el proyecto
-// Las relaciones en proyectos_tecnologias y visitas_proyectos se eliminan automáticamente por CASCADE
+// Las relaciones en proyectos_tecnologias y visitas_proyectos ahora si se borran solas :D
 $stmt_delete = $conn->prepare("DELETE FROM proyectos WHERE id = ?");
 $stmt_delete->bind_param("i", $id);
 

@@ -1,4 +1,3 @@
-/* Archivo CSS adicional para estilos personalizados */
 /* La mayoría de los estilos están en el header.php usando Bootstrap 5 */
 
 /* Animaciones adicionales */
@@ -17,12 +16,11 @@
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Mejoras de scroll suave */
+/* para el scroll suave */
 html {
     scroll-behavior: smooth;
 }
 
-/* Estilos para impresión */
 @media print {
     .navbar-custom,
     .footer,
@@ -35,7 +33,7 @@ html {
     }
 }
 
-/* Estilos adicionales para dispositivos móviles */
+/* esto va siempre para moviles*/
 @media (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);

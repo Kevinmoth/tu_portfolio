@@ -2,7 +2,7 @@
 session_start();
 require_once '../includes/conexion.php';
 
-// Verificar si está logueado
+// Verificar si estel ususario esta o no logeado
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
     header('Location: login.php');
     exit;
@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
 $mensaje_exito = '';
 $mensaje_error = '';
 
-// Procesar formulario
+// para procesar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $actualizado = 0;
     
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Obtener todas las configuraciones
+// traer las confis de la BD
 $configuraciones = $conn->query("SELECT * FROM configuracion ORDER BY clave");
 
 $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_contacto WHERE leido = FALSE")->fetch_assoc()['total'];
@@ -47,118 +47,18 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+    <link rel="stylesheet" href="../assets/css/configuracion.css">
     <style>
-        :root {
-            --primary-blue: #4a90e2;
-            --dark-blue: #2c5aa0;
-            --sidebar-width: 250px;
-        }
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-        }
-        
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
-            color: white;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .sidebar-header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 20px;
-        }
-        
-        .sidebar-header h4 {
-            margin: 0;
-            font-weight: bold;
-        }
-        
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .sidebar-menu li {
-            margin-bottom: 5px;
-        }
-        
-        .sidebar-menu a {
-            display: block;
-            padding: 12px 15px;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(255,255,255,0.2);
-            padding-left: 20px;
-        }
-        
-        .sidebar-menu i {
-            margin-right: 10px;
-            width: 20px;
-        }
-        
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 30px;
-        }
-        
-        .top-bar {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .form-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .config-section {
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #e9ecef;
-        }
-        
-        .config-section:last-child {
-            border-bottom: none;
-        }
-        
-        .config-section h5 {
-            color: var(--primary-blue);
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h4>KRON Admin</h4>
-            <small><?php echo $_SESSION['admin_usuario']; ?></small>
+            <h4>TU portfolio</h4>
+            <small><?php echo $_SESSION['admin_usuario']; ?></small> <!-- trae el nombre de usuario , revisar parce mayusculas!!!-->
         </div>
         
         <ul class="sidebar-menu">
@@ -211,16 +111,15 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
         </ul>
     </div>
     
-    <!-- Main Content -->
+    <!-- contenido principal (bajo el nav) -->
     <div class="main-content">
-        <!-- Top Bar -->
         <div class="top-bar">
             <h3 class="mb-0">
                 <i class="bi bi-sliders"></i> Configuración del Sitio
             </h3>
         </div>
         
-        <!-- Mensajes -->
+        <!-- seccion de mensajes -->
         <?php if ($mensaje_exito): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <i class="bi bi-check-circle-fill"></i> <?php echo $mensaje_exito; ?>
@@ -235,14 +134,14 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
             </div>
         <?php endif; ?>
         
-        <!-- Formulario de Configuración -->
+        <!--- carga de config -->
         <div class="form-card">
             <form method="POST" action="configuracion.php">
                 
                 <!-- Configuración General -->
                 <div class="config-section">
                     <h5>
-                        <i class="bi bi-info-circle"></i> Información General
+                        <i class="bi bi-info-circle"></i>Tu información General
                     </h5>
                     
                     <?php
@@ -287,7 +186,7 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
                 <!-- Sobre Mí -->
                 <div class="config-section">
                     <h5>
-                        <i class="bi bi-person-circle"></i> Sección "Sobre Mí"
+                        <i class="bi bi-person-circle"></i> Tu sección "Sobre Mí"
                     </h5>
                     
                     <?php
@@ -326,19 +225,19 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
                 <!-- Redes Sociales -->
                 <div class="config-section">
                     <h5>
-                        <i class="bi bi-share"></i> Redes Sociales
+                        <i class="bi bi-share"></i> Tus Redes Sociales
                     </h5>
                     
                     <?php
                     $configuraciones->data_seek(0);
                     while ($config = $configuraciones->fetch_assoc()):
-                        if (in_array($config['clave'], ['github_url', 'linkedin_url', 'twitter_url'])):
+                        if (in_array($config['clave'], ['github_url', 'linkedin_url', 'facebook_url'])):
                     ?>
                         <div class="mb-4">
                             <label for="<?php echo $config['clave']; ?>" class="form-label">
                                 <i class="bi bi-<?php 
                                     echo ($config['clave'] == 'github_url') ? 'github' : 
-                                         (($config['clave'] == 'linkedin_url') ? 'linkedin' : 'twitter'); 
+                                         (($config['clave'] == 'linkedin_url') ? 'linkedin' : 'facebook'); 
                                 ?>"></i>
                                 <?php echo ucfirst(str_replace('_', ' ', $config['clave'])); ?>
                             </label>
@@ -363,11 +262,11 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
                 <!-- Configuración de Visualización -->
                 <div class="config-section">
                     <h5>
-                        <i class="bi bi-eye"></i> Configuración de Visualización
+                        <i class="bi bi-eye"></i> Configuraciones de Visualización
                     </h5>
                     
                     <?php
-                    $configuraciones->data_seek(0);
+                    $configuraciones->data_seek(0); # reinicia el puntero del resultado
                     while ($config = $configuraciones->fetch_assoc()):
                         if (in_array($config['clave'], ['proyectos_por_pagina'])):
                     ?>
@@ -410,8 +309,8 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
                 <i class="bi bi-info-circle"></i> Información
             </h5>
             <p class="mb-0">
-                Los cambios realizados en esta sección se reflejarán automáticamente en todo el sitio público. 
-                Asegúrate de verificar cómo se ven los cambios visitando el sitio.
+                Los cambios que hagas en esta sección se vana  ver reflejados automáticamente en todo el . 
+                Asegúrate de verificar cómo se ven tus cambios visitando el sitio.
             </p>
         </div>
         

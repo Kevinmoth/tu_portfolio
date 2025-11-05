@@ -2,7 +2,7 @@
 session_start();
 require_once '../includes/conexion.php';
 
-// Verificar si está logueado
+
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
     header('Location: login.php');
     exit;
@@ -15,7 +15,6 @@ $proyecto = null;
 
 // Obtener categorías
 $categorias = $conn->query("SELECT * FROM categorias ORDER BY nombre");
-
 // Obtener tecnologías
 $tecnologias = $conn->query("SELECT * FROM tecnologias ORDER BY nombre");
 
@@ -62,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar'])) {
     if (empty($titulo) || empty($descripcion) || empty($categoria_id)) {
         $mensaje_error = 'Por favor, completa todos los campos obligatorios.';
     } else {
-        // Procesar nueva imagen si se subió
+        // Procesar nueva imagen pero solo s si se subió
         $actualizar_imagen = false;
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen_tmp = $_FILES['imagen']['tmp_name'];
@@ -92,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar'])) {
                     WHERE id = ?
                 ");
                 $stmt->bind_param(
-                    "sssisbisssssiii",
+                    "sssisbisssssiii", //tipos de valor
                     $titulo, $descripcion, $descripcion_corta, $categoria_id,
                     $imagen, $imagen_tipo, $imagen_tamanio, $imagen_nombre,
                     $url_demo, $url_github, $url_repo, $destacado, $activo, $id
@@ -115,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar'])) {
                 // Eliminar tecnologías anteriores
                 $conn->query("DELETE FROM proyectos_tecnologias WHERE proyecto_id = $id");
                 
-                // Insertar nuevas tecnologías
+                // Insertar lass nuevas 
                 if (!empty($tecnologias_seleccionadas)) {
                     $stmt_tech = $conn->prepare("INSERT INTO proyectos_tecnologias (proyecto_id, tecnologia_id) VALUES (?, ?)");
                     foreach ($tecnologias_seleccionadas as $tech_id) {
@@ -125,9 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar'])) {
                     }
                 }
                 
-                $mensaje_exito = '¡Proyecto actualizado exitosamente!';
+                $mensaje_exito = 'Proyecto actualizado exitosamente!';
                 
-                // Recargar proyecto actualizado
+                // Recargar proyecto 
                 $stmt_reload = $conn->prepare("SELECT * FROM proyectos WHERE id = ?");
                 $stmt_reload->bind_param("i", $id);
                 $stmt_reload->execute();
@@ -143,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar'])) {
                     $tecnologias_proyecto[] = $row['tecnologia_id'];
                 }
             } else {
-                $mensaje_error = 'Error al actualizar el proyecto.';
+                $mensaje_error = 'Error al actualizar tu proyecto.';
             }
         }
     }
@@ -166,129 +165,11 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Proyectos - Panel Administrativo</title>
     
-    <!-- Bootstrap 5 CSS -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     
-    <style>
-        :root {
-            --primary-blue: #4a90e2;
-            --dark-blue: #2c5aa0;
-            --sidebar-width: 250px;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-        }
-        
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
-            color: white;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .sidebar-header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 20px;
-        }
-        
-        .sidebar-header h4 {
-            margin: 0;
-            font-weight: bold;
-        }
-        
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .sidebar-menu li {
-            margin-bottom: 5px;
-        }
-        
-        .sidebar-menu a {
-            display: block;
-            padding: 12px 15px;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(255,255,255,0.2);
-            padding-left: 20px;
-        }
-        
-        .sidebar-menu i {
-            margin-right: 10px;
-            width: 20px;
-        }
-        
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 30px;
-        }
-        
-        .top-bar {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .table-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .form-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .tech-checkbox {
-            padding: 10px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .tech-checkbox:hover {
-            border-color: var(--primary-blue);
-            background-color: #f8f9fa;
-        }
-        
-        .tech-checkbox input:checked + label {
-            color: var(--primary-blue);
-            font-weight: bold;
-        }
-        
-        .proyecto-img-preview {
-            max-width: 200px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-    </style>
 </head>
 <body>
     <!-- Sidebar -->
@@ -348,9 +229,8 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
         </ul>
     </div>
     
-    <!-- Main Content -->
+    <!-- contenido sobre la tabla -->
     <div class="main-content">
-        <!-- Top Bar -->
         <div class="top-bar">
             <h3 class="mb-0">
                 <i class="bi bi-pencil-square"></i> <?php echo $editando ? 'Editar Proyecto' : 'Gestionar Proyectos'; ?>
@@ -373,7 +253,7 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
         <?php endif; ?>
         
         <?php if ($editando && $proyecto): ?>
-        <!-- Formulario de Edición -->
+        <!-- Formulario para editar-->
         <div class="form-card mb-4">
             <h5 class="mb-4">
                 <i class="bi bi-pencil"></i> Editando: <?php echo htmlspecialchars($proyecto['titulo']); ?>
