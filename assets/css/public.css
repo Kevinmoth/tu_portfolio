@@ -1,0 +1,399 @@
+/* ========================================
+   SISTEMA DE PORTFOLIO PERSONAL
+   Estilos para el sitio público
+   ======================================== */
+
+/* Variables CSS */
+:root {
+    --primary-blue: #4a90e2;
+    --dark-blue: #2c5aa0;
+    --light-gray: #f5f5f5;
+    --card-gray: #e8e8e8;
+    --text-dark: #333333;
+}
+
+/* Body y configuración general */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-gray);
+    color: var(--text-dark);
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar-custom {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: var(--text-dark) !important;
+    letter-spacing: 2px;
+}
+
+.nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 500;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-blue) !important;
+}
+
+/* ========================================
+   BANNER HERO
+   ======================================== */
+.hero-banner {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    padding: 60px 0;
+    margin-bottom: 40px;
+}
+
+.hero-banner h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero-banner p {
+    font-size: 1.2rem;
+    opacity: 0.95;
+}
+
+.hero-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ========================================
+   TARJETAS DE PROYECTOS
+   ======================================== */
+.project-card {
+    background-color: var(--card-gray);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card-body {
+    padding: 20px;
+}
+
+.project-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.project-description {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.tech-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    margin: 3px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+/* ========================================
+   BOTONES
+   ======================================== */
+.btn-primary-custom {
+    background-color: var(--primary-blue);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background-color: var(--dark-blue);
+}
+
+/* ========================================
+   BÚSQUEDA
+   ======================================== */
+.search-box {
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+.search-box input {
+    border-radius: 25px;
+    padding: 12px 20px;
+    border: 2px solid #ddd;
+}
+
+.search-box input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+    background-color: var(--text-dark);
+    color: white;
+    padding: 30px 0;
+    margin-top: 60px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--primary-blue);
+}
+
+/* ========================================
+   CARRUSEL / SECCIONES
+   ======================================== */
+.carousel-section {
+    margin-bottom: 50px;
+}
+
+.carousel-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+/* ========================================
+   PÁGINA DE DETALLE DE PROYECTO
+   ======================================== */
+.proyecto-detalle-hero {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    padding: 60px 0 40px;
+    margin-bottom: 40px;
+}
+
+.proyecto-imagen-principal {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.info-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: white;
+    border-radius: 25px;
+    margin: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.info-badge i {
+    margin-right: 8px;
+    color: var(--primary-blue);
+}
+
+.descripcion-completa {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.btn-accion {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-accion:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.proyecto-relacionado-card {
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.proyecto-relacionado-card:hover {
+    transform: translateY(-5px);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+    .hero-banner h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-banner p {
+        font-size: 1rem;
+    }
+    
+    .project-card img {
+        height: 180px;
+    }
+}
+
+/* ========================================
+   ANIMACIONES
+   ======================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   UTILIDADES
+   ======================================== */
+.text-primary-custom {
+    color: var(--primary-blue);
+}
+
+.bg-primary-custom {
+    background-color: var(--primary-blue);
+}
+
+.border-primary-custom {
+    border-color: var(--primary-blue);
+}
+/* ========================================
+   CONTENIDO MARKDOWN
+   ======================================== */
+.markdown-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+/* Encabezados en Markdown */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3{
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text-dark);
+}
+
+.markdown-content h1 {
+    font-size: 2rem;
+    border-bottom: 2px solid #e1e4e8;
+    padding-bottom: 10px;
+}
+
+.markdown-content h2 {
+    font-size: 1.7rem;
+    border-bottom: 1px solid #e1e4e8;
+    padding-bottom: 8px;
+}
+
+.markdown-content h3 {
+    font-size: 1.4rem;
+}
+
+.markdown-content p {
+    margin-bottom: 16px;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    margin-bottom: 16px;
+    padding-left: 32px;
+}
+
+.markdown-content a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.markdown-content code {
+    background-color: rgba(27, 31, 35, 0.05);
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    color: #e83e8c;
+}
+
+.markdown-content pre {
+    background-color: #f6f8fa;
+    border-radius: 6px;
+    padding: 16px;
+    overflow-x: auto;
+    margin-bottom: 16px;
+    border: 1px solid #e1e4e8;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid var(--primary-blue);
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: #f8f9fa;
+    color: #6a737d;
+    font-style: italic;
+}
+
+.markdown-content strong {
+    font-weight: 600;
+}

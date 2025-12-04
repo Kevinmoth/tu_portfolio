@@ -27,7 +27,7 @@ $pagina_actual = basename($_SERVER['PHP_SELF'], '.php');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/headear_general.css">
+    <link rel="stylesheet" href="assets/css/public.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -42,7 +42,9 @@ $pagina_actual = basename($_SERVER['PHP_SELF'], '.php');
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($pagina_actual == 'index') ? 'active' : ''; ?>" href="index.php">Inicio</a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($pagina_actual == 'proyectos') ? 'active' : ''; ?>" href="proyectos.php">Proyectos</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($pagina_actual == 'bots') ? 'active' : ''; ?>" href="bots.php">Bots</a>
                     </li>

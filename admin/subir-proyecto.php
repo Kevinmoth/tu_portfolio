@@ -124,7 +124,7 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
     
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/configuracion.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
     <!-- Sidebar -->

@@ -92,7 +92,8 @@ function obtener_tecnologias($proyecto_id) {
         <div class="row g-4 mb-5">
             <?php while ($proyecto = $proyectos->fetch_assoc()): ?>
             <div class="col-md-6 col-lg-4">
-                <div class="project-card">
+                <a href="detalle-proyecto.php?id=<?php echo $proyecto['id']; ?>" style="text-decoration: none; color: inherit;">
+                    <div class="project-card">
                     <?php if ($proyecto['imagen']): ?>
                         <img src="includes/conexion.php?img=proyecto&id=<?php echo $proyecto['id']; ?>" 
                              alt="<?php echo htmlspecialchars($proyecto['titulo']); ?>">

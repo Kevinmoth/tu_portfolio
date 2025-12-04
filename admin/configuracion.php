@@ -1,8 +1,13 @@
+
+
 <?php
+
+//Aca los administradores del sitio web van a poder modificar varias configuraciones almacenadas en la base de datos, como el nombre del sitio, la información de contacto y los enlaces a las redes sociales. Proporciona un formulario para actualizar estas confis y muestra mensajes de error según corresponda.
+
 session_start();
 require_once '../includes/conexion.php';
 
-// Verificar si estel ususario esta o no logeado
+// Verificamos si hay admin logeado
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
     header('Location: login.php');
     exit;
@@ -11,7 +16,7 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
 $mensaje_exito = '';
 $mensaje_error = '';
 
-// para procesar formulario
+// procesar el form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $actualizado = 0;
     
@@ -45,10 +50,10 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuración - Panel Administrativo</title>
     
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 CSS, Bootstrap Icons y el css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/configuracion.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
     <style>
         
     </style>
@@ -259,14 +264,13 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
                     ?>
                 </div>
                 
-                <!-- Configuración de Visualización -->
                 <div class="config-section">
                     <h5>
                         <i class="bi bi-eye"></i> Configuraciones de Visualización
                     </h5>
                     
                     <?php
-                    $configuraciones->data_seek(0); # reinicia el puntero del resultado
+                    $configuraciones->data_seek(0); # <-------reinicia el puntero del resultado
                     while ($config = $configuraciones->fetch_assoc()):
                         if (in_array($config['clave'], ['proyectos_por_pagina'])):
                     ?>
