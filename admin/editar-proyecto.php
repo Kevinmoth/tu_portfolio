@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar'])) {
                     WHERE id = ?
                 ");
                 $stmt->bind_param(
-                    "sssisbisssssiii", //tipos de valor
+                    "sssibsissssiii", //tipos de valor
                     $titulo, $descripcion, $descripcion_corta, $categoria_id,
                     $imagen, $imagen_tipo, $imagen_tamanio, $imagen_nombre,
                     $url_demo, $url_github, $url_repo, $destacado, $activo, $id
