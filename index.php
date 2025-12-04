@@ -45,11 +45,12 @@ function obtener_tecnologias($proyecto_id) {
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3 text-center mb-4 mb-md-0">
-                <img src="assets/img/logo.png" alt="Logo" class="hero-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23ffffff%22 width=%22150%22 height=%22150%22 rx=%2275%22/%3E%3Ctext fill=%22%234a90e2%22 font-family=%22Arial%22 font-size=%2260%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EK%3C/text%3E%3C/svg%3E'">
+                <img src="assets/img/logo.jpeg" alt="Logo" class="hero-image">
+
             </div>
             <div class="col-md-9">
-                <h1>Bienvenido a mi Portfolio</h1>
-                <p class="lead">Desarrollador apasionado por crear soluciones innovadoras. Explora mis proyectos de bots, programas y scripts.</p>
+                <h1>Kevin Kronbauer</h1>
+                <p class="lead">Analista de sistemas y Desarrollador buscando crear soluciones innovadoras.<br> En esta pagina vas a poder conocer mis proyectos y habilidades.</p>
             </div>
         </div>
     </div>

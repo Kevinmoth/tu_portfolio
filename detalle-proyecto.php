@@ -253,10 +253,7 @@ function obtener_tecnologias($proyecto_id)
                         $titulo_encoded = urlencode($proyecto['titulo']);
                         ?>
 
-                        <a href="https://twitter.com/intent/tweet?url=<?php echo $url_actual; ?>&text=<?php echo $titulo_encoded; ?>"
-                            target="_blank" class="btn btn-outline-info btn-sm" title="Compartir en Twitter">
-                            <i class="bi bi-twitter"></i>
-                        </a>
+                        
 
                         <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url_actual; ?>"
                             target="_blank" class="btn btn-outline-primary btn-sm" title="Compartir en Facebook">

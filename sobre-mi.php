@@ -32,11 +32,11 @@ $total_categorias = $total_categorias_query->fetch_assoc()['total'];
                 <div class="card-body p-5">
                     <div class="row align-items-center">
                         <div class="col-md-4 text-center mb-4 mb-md-0">
-                            <img src="assets/img/logo.png" 
+                            <img src="assets/img/logo.jpeg" 
                                  alt="Perfil" 
                                  class="img-fluid rounded-circle shadow" 
                                  style="max-width: 250px; border: 5px solid var(--primary-blue);"
-                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Ccircle fill=%22%234a90e2%22 cx=%22125%22 cy=%22125%22 r=%22125%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2280%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EK%3C/text%3E%3C/svg%3E'">
+                                 onerror="this.src='assets/img/logo.jpeg">
                         </div>
                         <div class="col-md-8">
                             <div class="sobre-mi-content" style="font-size: 1.1rem; line-height: 1.8; color: #555;">
