@@ -33,6 +33,18 @@ html {
     }
 }
 
+.project-card {
+    background-color: var(--card-gray);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer; 
+}
+
+
+
 /* esto va siempre para moviles*/
 @media (max-width: 768px) {
     .sidebar {
@@ -49,3 +61,4 @@ html {
         margin-left: 0;
     }
 }
+

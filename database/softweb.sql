@@ -15,7 +15,8 @@ CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     descripcion TEXT,
-    slug VARCHAR(50) NOT NULL UNIQUE
+    slug VARCHAR(50) NOT NULL UNIQUE,
+    icono VARCHAR(50) DEFAULT 'bi-folder'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE tecnologias (
@@ -109,10 +110,10 @@ CREATE TABLE logs_admin (
     INDEX idx_fecha (fecha)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO categorias (nombre, descripcion, slug) VALUES
-('Bots', 'Proyectos de bots y automatizaciÃ³n', 'bots'),
-('Programas', 'Software y aplicaciones desarrolladas', 'programas'),
-('Scripts', 'Scripts y utilidades', 'scripts');
+INSERT INTO categorias (nombre, descripcion, slug, icono) VALUES
+('Bots', 'Proyectos de bots y automatizacion', 'bots', 'bi-robot'),
+('Programas', 'Software y aplicaciones desarrolladas', 'programas', 'bi-window-desktop'),
+('Scripts', 'Scripts y utilidades', 'scripts', 'bi-code-slash');
 
 INSERT INTO tecnologias (nombre, icono, color) VALUES
 ('PHP', NULL, '#777BB4'),
@@ -137,4 +138,10 @@ INSERT INTO configuracion (clave, valor, tipo, descripcion) VALUES
 ('github_url', 'https://github.com/usuario', 'text', 'URL de GitHub'),
 ('linkedin_url', '', 'text', 'URL de LinkedIn'),
 ('twitter_url', '', 'text', 'URL de Twitter'),
-('proyectos_por_pagina', '9', 'number', 'Proyectos a mostrar por pagina');
+('proyectos_por_pagina', '9', 'number', 'Proyectos a mostrar por pagina'),
+('hero_titulo', 'Bienvenido a mi Portfolio', 'text', 'Titulo del hero banner'),
+('hero_subtitulo', 'Desarrollador apasionado por crear soluciones innovadoras', 'text', 'Subtitulo del hero banner'),
+('hero_cta_texto', 'Ver Todos los Proyectos', 'text', 'Texto del boton CTA del hero'),
+('footer_texto', 'Todos los derechos reservados.', 'text', 'Texto de copyright del footer'),
+('color_primario', '#4a90e2', 'color', 'Color primario del sitio (hex)'),
+('color_secundario', '#2c5aa0', 'color', 'Color secundario del sitio (hex)');

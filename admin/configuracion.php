@@ -54,62 +54,7 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h4>TU portfolio</h4>
-            <small><?php echo $_SESSION['admin_usuario']; ?></small> <!-- trae el nombre de usuario , revisar parce mayusculas!!!-->
-        </div>
-        
-        <ul class="sidebar-menu">
-            <li>
-                <a href="dashboard.php">
-                    <i class="bi bi-speedometer2"></i> Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="subir-proyecto.php">
-                    <i class="bi bi-plus-circle"></i> Subir Proyecto
-                </a>
-            </li>
-            <li>
-                <a href="editar-proyecto.php">
-                    <i class="bi bi-pencil-square"></i> Editar Proyectos
-                </a>
-            </li>
-            <li>
-                <a href="mensajes.php">
-                    <i class="bi bi-envelope"></i> Mensajes
-                    <?php if ($mensajes_no_leidos > 0): ?>
-                        <span class="badge bg-danger"><?php echo $mensajes_no_leidos; ?></span>
-                    <?php endif; ?>
-                </a>
-            </li>
-            <li>
-                <a href="tecnologias.php">
-                    <i class="bi bi-gear"></i> Tecnologías
-                </a>
-            </li>
-            <li>
-                <a href="configuracion.php" class="active">
-                    <i class="bi bi-sliders"></i> Configuración
-                </a>
-            </li>
-            <li>
-                <hr style="border-color: rgba(255,255,255,0.2);">
-            </li>
-            <li>
-                <a href="../index.php" target="_blank">
-                    <i class="bi bi-globe"></i> Ver Sitio
-                </a>
-            </li>
-            <li>
-                <a href="logout.php">
-                    <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                </a>
-            </li>
-        </ul>
-    </div>
+    <?php $pagina_activa = 'configuracion'; require_once 'includes/sidebar.php'; ?>
     
     <!-- contenido principal (bajo el nav) -->
     <div class="main-content">
@@ -231,13 +176,13 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
                     <?php
                     $configuraciones->data_seek(0);
                     while ($config = $configuraciones->fetch_assoc()):
-                        if (in_array($config['clave'], ['github_url', 'linkedin_url', 'facebook_url'])):
+                        if (in_array($config['clave'], ['github_url', 'linkedin_url', 'twitter_url'])):
                     ?>
                         <div class="mb-4">
                             <label for="<?php echo $config['clave']; ?>" class="form-label">
                                 <i class="bi bi-<?php 
-                                    echo ($config['clave'] == 'github_url') ? 'github' : 
-                                         (($config['clave'] == 'linkedin_url') ? 'linkedin' : 'facebook'); 
+                                    echo ($config['clave'] == 'github_url') ? 'github' :
+                                         (($config['clave'] == 'linkedin_url') ? 'linkedin' : 'twitter'); 
                                 ?>"></i>
                                 <?php echo ucfirst(str_replace('_', ' ', $config['clave'])); ?>
                             </label>
@@ -292,9 +237,85 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
                     endwhile; 
                     ?>
                 </div>
-                
+
+                <!-- Hero Banner -->
+                <div class="config-section">
+                    <h5><i class="bi bi-image"></i> Hero Banner</h5>
+                    <?php
+                    $configuraciones->data_seek(0);
+                    while ($config = $configuraciones->fetch_assoc()):
+                        if (in_array($config['clave'], ['hero_titulo', 'hero_subtitulo', 'hero_cta_texto'])):
+                    ?>
+                        <div class="mb-4">
+                            <label for="<?php echo $config['clave']; ?>" class="form-label">
+                                <?php echo ucfirst(str_replace('_', ' ', $config['clave'])); ?>
+                            </label>
+                            <input type="text" class="form-control"
+                                   id="<?php echo $config['clave']; ?>"
+                                   name="<?php echo $config['clave']; ?>"
+                                   value="<?php echo htmlspecialchars($config['valor']); ?>">
+                            <?php if ($config['descripcion']): ?>
+                                <small class="text-muted"><?php echo htmlspecialchars($config['descripcion']); ?></small>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; endwhile; ?>
+                </div>
+
+                <!-- Apariencia -->
+                <div class="config-section">
+                    <h5><i class="bi bi-palette"></i> Apariencia</h5>
+                    <?php
+                    $configuraciones->data_seek(0);
+                    while ($config = $configuraciones->fetch_assoc()):
+                        if (in_array($config['clave'], ['color_primario', 'color_secundario'])):
+                    ?>
+                        <div class="mb-4">
+                            <label for="<?php echo $config['clave']; ?>" class="form-label">
+                                <?php echo ucfirst(str_replace('_', ' ', $config['clave'])); ?>
+                            </label>
+                            <div class="input-group">
+                                <input type="color" class="form-control form-control-color"
+                                       id="<?php echo $config['clave']; ?>_color"
+                                       value="<?php echo htmlspecialchars($config['valor']); ?>"
+                                       onchange="document.getElementById('<?php echo $config['clave']; ?>').value = this.value;">
+                                <input type="text" class="form-control"
+                                       id="<?php echo $config['clave']; ?>"
+                                       name="<?php echo $config['clave']; ?>"
+                                       value="<?php echo htmlspecialchars($config['valor']); ?>"
+                                       pattern="^#[0-9A-Fa-f]{6}$">
+                            </div>
+                            <?php if ($config['descripcion']): ?>
+                                <small class="text-muted"><?php echo htmlspecialchars($config['descripcion']); ?></small>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; endwhile; ?>
+                </div>
+
+                <!-- Footer -->
+                <div class="config-section">
+                    <h5><i class="bi bi-file-text"></i> Footer</h5>
+                    <?php
+                    $configuraciones->data_seek(0);
+                    while ($config = $configuraciones->fetch_assoc()):
+                        if (in_array($config['clave'], ['footer_texto'])):
+                    ?>
+                        <div class="mb-4">
+                            <label for="<?php echo $config['clave']; ?>" class="form-label">
+                                Texto de Copyright
+                            </label>
+                            <input type="text" class="form-control"
+                                   id="<?php echo $config['clave']; ?>"
+                                   name="<?php echo $config['clave']; ?>"
+                                   value="<?php echo htmlspecialchars($config['valor']); ?>">
+                            <?php if ($config['descripcion']): ?>
+                                <small class="text-muted"><?php echo htmlspecialchars($config['descripcion']); ?></small>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; endwhile; ?>
+                </div>
+
                 <hr>
-                
+
                 <div class="text-end">
                     <button type="submit" name="submit" class="btn btn-lg" style="background-color: var(--primary-blue); color: white;">
                         <i class="bi bi-save"></i> Guardar Configuración

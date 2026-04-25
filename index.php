@@ -25,19 +25,6 @@ $stmt_recientes = $conn->prepare("
 $stmt_recientes->execute();
 $proyectos_recientes = $stmt_recientes->get_result();
 
-// Función para obtener tecnologías de un proyecto
-function obtener_tecnologias($proyecto_id) {
-    global $conn;
-    $stmt = $conn->prepare("
-        SELECT t.nombre, t.color 
-        FROM tecnologias t 
-        INNER JOIN proyectos_tecnologias pt ON t.id = pt.tecnologia_id 
-        WHERE pt.proyecto_id = ?
-    ");
-    $stmt->bind_param("i", $proyecto_id);
-    $stmt->execute();
-    return $stmt->get_result();
-}
 ?>
 
 <!-- Banner Hero -->
@@ -48,8 +35,10 @@ function obtener_tecnologias($proyecto_id) {
                 <img src="assets/img/logo.png" alt="Logo" class="hero-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23ffffff%22 width=%22150%22 height=%22150%22 rx=%2275%22/%3E%3Ctext fill=%22%234a90e2%22 font-family=%22Arial%22 font-size=%2260%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EK%3C/text%3E%3C/svg%3E'">
             </div>
             <div class="col-md-9">
-                <h1>Bienvenido a mi Portfolio</h1>
-                <p class="lead">Desarrollador apasionado por crear soluciones innovadoras. Explora mis proyectos de bots, programas y scripts.</p>
+                <h1><?php echo htmlspecialchars($hero_titulo); ?></h1>
+                <?php if ($hero_subtitulo): ?>
+                    <p class="lead"><?php echo htmlspecialchars($hero_subtitulo); ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -67,57 +56,7 @@ function obtener_tecnologias($proyecto_id) {
         <div class="row g-4">
             <?php while ($proyecto = $proyectos_destacados->fetch_assoc()): ?>
             <div class="col-md-6 col-lg-4">
-                <div class="project-card">
-                    <?php if ($proyecto['imagen']): ?>
-                        <img src="includes/conexion.php?img=proyecto&id=<?php echo $proyecto['id']; ?>" 
-                             alt="<?php echo htmlspecialchars($proyecto['titulo']); ?>">
-                    <?php else: ?>
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23e9ecef' width='400' height='200'/%3E%3Ctext fill='%236c757d' font-family='Arial' font-size='20' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ESin imagen%3C/text%3E%3C/svg%3E" 
-                             alt="Sin imagen">
-                    <?php endif; ?>
-                    
-                    <div class="project-card-body">
-                        <h3 class="project-title"><?php echo htmlspecialchars($proyecto['titulo']); ?></h3>
-                        
-                        <span class="badge bg-secondary mb-2">
-                            <?php echo htmlspecialchars($proyecto['categoria_nombre']); ?>
-                        </span>
-                        
-                        <p class="project-description">
-                            <?php 
-                            $desc = $proyecto['descripcion_corta'] ?? $proyecto['descripcion'];
-                            echo htmlspecialchars(substr($desc, 0, 100)) . (strlen($desc) > 100 ? '...' : ''); 
-                            ?>
-                        </p>
-                        
-                        <div class="mb-3">
-                            <?php
-                            $tecnologias = obtener_tecnologias($proyecto['id']);
-                            while ($tech = $tecnologias->fetch_assoc()):
-                            ?>
-                                <span class="tech-badge" style="background-color: <?php echo $tech['color']; ?>">
-                                    <?php echo htmlspecialchars($tech['nombre']); ?>
-                                </span>
-                            <?php endwhile; ?>
-                        </div>
-                        
-                        <div class="d-flex gap-2">
-                            <?php if ($proyecto['url_demo']): ?>
-                                <a href="<?php echo htmlspecialchars($proyecto['url_demo']); ?>" 
-                                   class="btn btn-sm btn-primary-custom" target="_blank">
-                                    <i class="bi bi-box-arrow-up-right"></i> Demo
-                                </a>
-                            <?php endif; ?>
-                            
-                            <?php if ($proyecto['url_github']): ?>
-                                <a href="<?php echo htmlspecialchars($proyecto['url_github']); ?>" 
-                                   class="btn btn-sm btn-outline-dark" target="_blank">
-                                    <i class="bi bi-github"></i> Código
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
+                <?php echo renderizar_tarjeta_proyecto($proyecto); ?>
             </div>
             <?php endwhile; ?>
         </div>
@@ -132,62 +71,12 @@ function obtener_tecnologias($proyecto_id) {
         </h2>
         
         <div class="row g-4">
-            <?php 
-            $proyectos_recientes->data_seek(0); // Resetear el puntero
-            while ($proyecto = $proyectos_recientes->fetch_assoc()): 
+            <?php
+            $proyectos_recientes->data_seek(0);
+            while ($proyecto = $proyectos_recientes->fetch_assoc()):
             ?>
             <div class="col-md-6 col-lg-4">
-                <div class="project-card">
-                    <?php if ($proyecto['imagen']): ?>
-                        <img src="includes/conexion.php?img=proyecto&id=<?php echo $proyecto['id']; ?>" 
-                             alt="<?php echo htmlspecialchars($proyecto['titulo']); ?>">
-                    <?php else: ?>
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23e9ecef' width='400' height='200'/%3E%3Ctext fill='%236c757d' font-family='Arial' font-size='20' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ESin imagen%3C/text%3E%3C/svg%3E" 
-                             alt="Sin imagen">
-                    <?php endif; ?>
-                    
-                    <div class="project-card-body">
-                        <h3 class="project-title"><?php echo htmlspecialchars($proyecto['titulo']); ?></h3>
-                        
-                        <span class="badge bg-secondary mb-2">
-                            <?php echo htmlspecialchars($proyecto['categoria_nombre']); ?>
-                        </span>
-                        
-                        <p class="project-description">
-                            <?php 
-                            $desc = $proyecto['descripcion_corta'] ?? $proyecto['descripcion'];
-                            echo htmlspecialchars(substr($desc, 0, 100)) . (strlen($desc) > 100 ? '...' : ''); 
-                            ?>
-                        </p>
-                        
-                        <div class="mb-3">
-                            <?php
-                            $tecnologias = obtener_tecnologias($proyecto['id']);
-                            while ($tech = $tecnologias->fetch_assoc()):
-                            ?>
-                                <span class="tech-badge" style="background-color: <?php echo $tech['color']; ?>">
-                                    <?php echo htmlspecialchars($tech['nombre']); ?>
-                                </span>
-                            <?php endwhile; ?>
-                        </div>
-                        
-                        <div class="d-flex gap-2">
-                            <?php if ($proyecto['url_demo']): ?>
-                                <a href="<?php echo htmlspecialchars($proyecto['url_demo']); ?>" 
-                                   class="btn btn-sm btn-primary-custom" target="_blank">
-                                    <i class="bi bi-box-arrow-up-right"></i> Demo
-                                </a>
-                            <?php endif; ?>
-                            
-                            <?php if ($proyecto['url_github']): ?>
-                                <a href="<?php echo htmlspecialchars($proyecto['url_github']); ?>" 
-                                   class="btn btn-sm btn-outline-dark" target="_blank">
-                                    <i class="bi bi-github"></i> Código
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
+                <?php echo renderizar_tarjeta_proyecto($proyecto); ?>
             </div>
             <?php endwhile; ?>
         </div>
@@ -198,40 +87,10 @@ function obtener_tecnologias($proyecto_id) {
     <div class="text-center my-5 py-5">
         <h3 class="mb-4">¿Quieres ver más proyectos?</h3>
         <a href="proyectos.php" class="btn btn-lg btn-primary-custom">
-            Ver Todos los Proyectos <i class="bi bi-arrow-right"></i>
+            <?php echo htmlspecialchars($hero_cta_texto); ?> <i class="bi bi-arrow-right"></i>
         </a>
     </div>
     
 </div>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container text-center">
-        <div class="social-links mb-3">
-            <?php if ($github_url): ?>
-                <a href="<?php echo htmlspecialchars($github_url); ?>" target="_blank">
-                    <i class="bi bi-github"></i>
-                </a>
-            <?php endif; ?>
-            
-            <?php if ($linkedin_url): ?>
-                <a href="<?php echo htmlspecialchars($linkedin_url); ?>" target="_blank">
-                    <i class="bi bi-linkedin"></i>
-                </a>
-            <?php endif; ?>
-            
-            <?php if ($twitter_url): ?>
-                <a href="<?php echo htmlspecialchars($twitter_url); ?>" target="_blank">
-                    <i class="bi bi-twitter"></i>
-                </a>
-            <?php endif; ?>
-        </div>
-        
-        <p class="mb-0">&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars($nombre_sitio); ?>. Todos los derechos reservados.</p>
-    </div>
-</footer>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>

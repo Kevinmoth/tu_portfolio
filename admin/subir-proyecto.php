@@ -127,62 +127,7 @@ $mensajes_no_leidos = $conn->query("SELECT COUNT(*) as total FROM mensajes_conta
     <link rel="stylesheet" href="../assets/css/configuracion.css">
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h4>KRON Admin</h4>
-            <small><?php echo $_SESSION['admin_usuario']; ?></small>
-        </div>
-        
-        <ul class="sidebar-menu">
-            <li>
-                <a href="dashboard.php">
-                    <i class="bi bi-speedometer2"></i> Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="subir-proyecto.php" class="active">
-                    <i class="bi bi-plus-circle"></i> Subir Proyecto
-                </a>
-            </li>
-            <li>
-                <a href="editar-proyecto.php">
-                    <i class="bi bi-pencil-square"></i> Editar Proyectos
-                </a>
-            </li>
-            <li>
-                <a href="mensajes.php">
-                    <i class="bi bi-envelope"></i> Mensajes
-                    <?php if ($mensajes_no_leidos > 0): ?>
-                        <span class="badge bg-danger"><?php echo $mensajes_no_leidos; ?></span>
-                    <?php endif; ?>
-                </a>
-            </li>
-            <li>
-                <a href="tecnologias.php">
-                    <i class="bi bi-gear"></i> Tecnologías
-                </a>
-            </li>
-            <li>
-                <a href="configuracion.php">
-                    <i class="bi bi-sliders"></i> Configuración
-                </a>
-            </li>
-            <li>
-                <hr style="border-color: rgba(255,255,255,0.2);">
-            </li>
-            <li>
-                <a href="../index.php" target="_blank">
-                    <i class="bi bi-globe"></i> Ver Sitio
-                </a>
-            </li>
-            <li>
-                <a href="logout.php">
-                    <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                </a>
-            </li>
-        </ul>
-    </div>
+    <?php $pagina_activa = 'subir'; require_once 'includes/sidebar.php'; ?>
     
     <!-- Main Content -->
     <div class="main-content">
